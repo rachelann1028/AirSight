@@ -1,0 +1,55 @@
+<div id="aqi-message" class="aqi-banner"></div>
+
+<div class="dashboard-content">
+  <div class="dashboard-main">
+    <div class="cards">
+      <div class="card green">
+        <h3>Air Quality Index</h3>
+        <p class="card-value">42</p>
+        <p class="card-label">Moderate</p>
+        <p class="card-subtext">Current air quality</p>
+      </div>
+      <div class="card blue">
+        <h3>Main Pollutant</h3>
+        <p class="card-value">PM<sub>2.5</sub></p>
+        <p class="card-label">Concentration</p>
+        <p class="card-subtext">Particulate matter</p>
+      </div>
+      <div class="card green">
+        <h3>Prediction</h3>
+        <p class="card-value">55</p>
+        <p class="card-label">Moderate</p>
+        <p class="card-subtext">Tomorrow's forecast</p>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <h2>Air Quality Over Time</h2>
+      <canvas id="airQualityChart"></canvas>
+    </div>
+  </div>
+
+  <div class="sensor-column">
+    <div class="sensor-box">
+      <h3>Sensor Data</h3>
+      <p>
+        <strong>PM<sub>2.5</sub></strong
+        >: 32 µg/m³
+      </p>
+      <p><strong>O₃</strong>: 18 ppb</p>
+      <p><strong>NO₂</strong>: 24 ppb</p>
+    </div>
+    <div class="sensor-box">
+      <h3>Pollutant Concentration</h3>
+      <p>21 µg/m³</p>
+      <p>5 ppm</p>
+      <p>18 ppb</p>
+    </div>
+    <div class="recommendation-box">
+      <h3><i class="fa-regular fa-lightbulb fa-fade" style="color: #98e2af;"></i>Recommendations</h3>
+      <div class="recommendation-list" id="recommendation-list">
+        <!-- JS will inject recommendations -->
+      </div>
+    </div>
+  </div>
+</div>

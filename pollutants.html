@@ -1,0 +1,466 @@
+<main class="flex-1 p-8 overflow-y-auto">
+  <!-- <div class="flex items-center space-x-4 w-full">
+    <div class="relative flex-1">
+      <span
+        class="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+        >search</span
+      >
+      <input
+        class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#e1fddc] focus:border-[#e1fddc]"
+        placeholder="Search for pollutant..."
+        type="text"
+      />
+    </div>
+    <button
+      style="background-color: #e1fddc"
+      class="w-10 h-10 p-2 text-lime-800 rounded-full hover:bg-lime-300 focus:outline-none focus:ring-2 focus:ring-lime-400"
+      >
+      <span class="material-icons">mic</span>
+    </button>
+  </div> -->
+
+  <div class="bg-white p-6 rounded-2xl w-full shadow-sm my-4 overflow-x-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="font-semibold text-gray-800 text-lg">
+        Highest Concentration Day
+      </h3>
+      <button
+        class="text-gray-500 hover:text-gray-700"
+        title="Peak pollution day for each pollutant"
+      >
+        <span class="material-icons">help_outline</span>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-5 gap-4 text-center rounded-2xl">
+      <!-- PM2.5 -->
+      <div class="space-y-1">
+        <p class="text-sm text-gray-500">
+          <span class="text-2xl font-bold text-gray-900">15</span> June
+        </p>
+        <p class="font-semibold text-gray-800">PM2.5</p>
+        <p class="text-lg font-bold text-red-500">78 µg/m³</p>
+      </div>
+
+      <!-- O3 -->
+      <div class="space-y-1">
+        <p class="text-sm text-gray-500">
+          <span class="text-2xl font-bold text-gray-900">10</span> June
+        </p>
+        <p class="font-semibold text-gray-800">O3</p>
+        <p class="text-lg font-bold text-orange-500">62 ppb</p>
+      </div>
+
+      <!-- NO2 -->
+      <div class="space-y-1">
+        <p class="text-sm text-gray-500">
+          <span class="text-2xl font-bold text-gray-900">03</span> June
+        </p>
+        <p class="font-semibold text-gray-800">NO2</p>
+        <p class="text-lg font-bold text-yellow-500">25 ppb</p>
+      </div>
+
+      <!-- SO2 -->
+      <div class="space-y-1">
+        <p class="text-sm text-gray-500">
+          <span class="text-2xl font-bold text-gray-900">21</span> June
+        </p>
+        <p class="font-semibold text-gray-800">SO2</p>
+        <p class="text-lg font-bold text-green-500">12 ppb</p>
+      </div>
+
+      <!-- CO -->
+      <div class="space-y-1">
+        <p class="text-sm text-gray-500">
+          <span class="text-2xl font-bold text-gray-900">29</span> June
+        </p>
+        <p class="font-semibold text-gray-800">CO</p>
+        <p class="text-lg font-bold text-gray-600">0.9 ppm</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="">
+    <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm">
+      <div class="flex justify-between items-center mb-4 flex-wrap gap-4">
+        <h2 class="text-xl font-semibold text-gray-800">
+          Historic air quality graph
+        </h2>
+
+        <div class="flex items-center gap-4 flex-wrap">
+          <!-- Filter Buttons -->
+          <div id="filterButtons" class="flex items-center gap-2">
+            <button data-filter="Hourly" class="filter-btn">Hourly</button>
+            <button data-filter="Daily" class="filter-btn active">Daily</button>
+            <button data-filter="Weekly" class="filter-btn">Weekly</button>
+          </div>
+
+          <!-- UPDATED: Custom Smooth Pollutant Dropdown -->
+          <div class="custom-dropdown" id="pollutantDropdown">
+            <div class="dropdown-selected" id="dropdownSelected">
+              <span class="dropdown-label">Pollutants</span>
+              <span class="dropdown-value" id="dropdownValue">PM2.5</span>
+              <svg
+                class="dropdown-arrow"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <polyline points="6,9 12,15 18,9"></polyline>
+              </svg>
+            </div>
+
+            <div class="dropdown-options" id="dropdownOptions">
+              <div class="dropdown-option active" data-value="PM2.5">
+                <span class="option-icon"></span>
+                <div class="option-text">
+                  <span class="option-name">PM2.5</span>
+                  <span class="option-desc">Fine Particulate Matter</span>
+                </div>
+              </div>
+              <div class="dropdown-option" data-value="PM10">
+                <span class="option-icon"></span>
+                <div class="option-text">
+                  <span class="option-name">PM10</span>
+                  <span class="option-desc">Particulate Matter</span>
+                </div>
+              </div>
+              <div class="dropdown-option" data-value="NO2">
+                <span class="option-icon"></span>
+                <div class="option-text">
+                  <span class="option-name">NO2</span>
+                  <span class="option-desc">Nitrogen Dioxide</span>
+                </div>
+              </div>
+              <div class="dropdown-option" data-value="SO2">
+                <span class="option-icon"></span>
+                <div class="option-text">
+                  <span class="option-name">SO2</span>
+                  <span class="option-desc">Sulfur Dioxide</span>
+                </div>
+              </div>
+              <div class="dropdown-option" data-value="CO">
+                <span class="option-icon"></span>
+                <div class="option-text">
+                  <span class="option-name">CO</span>
+                  <span class="option-desc">Carbon Monoxide</span>
+                </div>
+              </div>
+              <div class="dropdown-option" data-value="O3">
+                <span class="option-icon"></span>
+                <div class="option-text">
+                  <span class="option-name">O3</span>
+                  <span class="option-desc">Ozone</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="relative h-96">
+        <canvas id="pollutantChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-8 bg-white p-6 rounded-2xl shadow-sm">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-semibold text-gray-800">Monthly AQI Calendar</h2>
+      <div class="flex items-center">
+        <!-- <button class="p-2 rounded-full hover:bg-gray-100">
+          <span class="material-icons">chevron_left</span>
+        </button> -->
+        <span class="font-semibold mx-2">June 2024</span>
+        <!-- <button class="p-2 rounded-full hover:bg-gray-100">
+          <span class="material-icons">chevron_right</span>
+        </button> -->
+      </div>
+    </div>
+    <div class="grid grid-cols-7 gap-1 text-center">
+      <div class="text-sm font-medium text-gray-500 pb-2">Sun</div>
+      <div class="text-sm font-medium text-gray-500 pb-2">Mon</div>
+      <div class="text-sm font-medium text-gray-500 pb-2">Tue</div>
+      <div class="text-sm font-medium text-gray-500 pb-2">Wed</div>
+      <div class="text-sm font-medium text-gray-500 pb-2">Thu</div>
+      <div class="text-sm font-medium text-gray-500 pb-2">Fri</div>
+      <div class="text-sm font-medium text-gray-500 pb-2">Sat</div>
+      <div class="h-28 text-gray-400 p-2 text-left">26</div>
+      <div class="h-28 text-gray-400 p-2 text-left">27</div>
+      <div class="h-28 text-gray-400 p-2 text-left">28</div>
+      <div class="h-28 text-gray-400 p-2 text-left">29</div>
+      <div class="h-28 text-gray-400 p-2 text-left">30</div>
+      <div class="h-28 text-gray-400 p-2 text-left">31</div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">1</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 45</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">2</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 48</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-yellow-100 border border-yellow-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">3</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-yellow-800">AQI: 68</p>
+          <p class="text-xs text-gray-600">Top: NO2</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-yellow-100 border border-yellow-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">4</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-yellow-800">AQI: 72</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">5</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 42</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">6</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 35</p>
+          <p class="text-xs text-gray-600">Top: SO2</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">7</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 49</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-yellow-100 border border-yellow-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">8</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-yellow-800">AQI: 85</p>
+          <p class="text-xs text-gray-600">Top: O3</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-yellow-100 border border-yellow-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">9</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-yellow-800">AQI: 92</p>
+          <p class="text-xs text-gray-600">Top: O3</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-orange-100 border border-orange-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">10</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-orange-800">AQI: 110</p>
+          <p class="text-xs text-gray-600">Top: O3</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-orange-100 border border-orange-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">11</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-orange-800">AQI: 125</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-yellow-100 border border-yellow-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">12</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-yellow-800">AQI: 98</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">13</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 50</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">14</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 47</p>
+          <p class="text-xs text-gray-600">Top: CO</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-red-100 border border-red-300 ring-2 ring-red-500 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">15</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-red-800">AQI: 155</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-orange-100 border border-orange-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">16</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-orange-800">AQI: 140</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-yellow-100 border border-yellow-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">17</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-yellow-800">AQI: 88</p>
+          <p class="text-xs text-gray-600">Top: O3</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">18</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 45</p>
+          <p class="text-xs text-gray-600">Top: SO2</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">19</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 39</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">20</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 41</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-yellow-100 border border-yellow-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">21</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-yellow-800">AQI: 65</p>
+          <p class="text-xs text-gray-600">Top: SO2</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-yellow-100 border border-yellow-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">22</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-yellow-800">AQI: 78</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-yellow-100 border border-yellow-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">23</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-yellow-800">AQI: 82</p>
+          <p class="text-xs text-gray-600">Top: O3</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">24</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 46</p>
+          <p class="text-xs text-gray-600">Top: CO</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">25</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 33</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-green-100 border border-green-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">26</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-green-800">AQI: 29</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-yellow-100 border border-yellow-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">27</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-yellow-800">AQI: 58</p>
+          <p class="text-xs text-gray-600">Top: NO2</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-yellow-100 border border-yellow-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">28</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-yellow-800">AQI: 61</p>
+          <p class="text-xs text-gray-600">Top: O3</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-orange-100 border border-orange-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">29</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-orange-800">AQI: 105</p>
+          <p class="text-xs text-gray-600">Top: CO</p>
+        </div>
+      </div>
+      <div
+        class="p-2 h-28 rounded-lg bg-orange-100 border border-orange-300 flex flex-col justify-start items-start text-left"
+      >
+        <span class="font-bold">30</span>
+        <div class="mt-auto w-full">
+          <p class="text-sm font-medium text-orange-800">AQI: 115</p>
+          <p class="text-xs text-gray-600">Top: PM2.5</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

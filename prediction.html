@@ -1,0 +1,157 @@
+<div class="prediction-container">
+  <section>
+    <div class="flex flex-wrap items-center justify-between gap-4 w-full">
+      <h2 class="section-title m-0">AQI Prediction</h2>
+
+      <div class="custom-dropdown model-dropdown w-[50%]" id="modelDropdown">
+        <div class="dropdown-selected" id="modelDropdownSelected">
+          <span class="dropdown-label">Select Prediction Model:</span>
+          <span class="dropdown-value" id="modelDropdownValue"
+            >Gradient Boosting</span
+          >
+          <svg
+            class="dropdown-arrow"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <polyline points="6,9 12,15 18,9"></polyline>
+          </svg>
+        </div>
+
+        <div class="dropdown-options" id="modelDropdownOptions">
+          <div class="dropdown-option active" data-value="gradient_boosting">
+            <span class="option-icon"></span>
+            <div class="option-text">
+              <span class="option-name">Gradient Boosting</span>
+              <span class="option-desc">Best: 99.7% accuracy</span>
+            </div>
+          </div>
+
+          <div class="dropdown-option" data-value="xgboost">
+            <span class="option-icon"></span>
+            <div class="option-text">
+              <span class="option-name">XGBoost</span>
+              <span class="option-desc">99.6% accuracy</span>
+            </div>
+          </div>
+
+          <div class="dropdown-option" data-value="random_forest">
+            <span class="option-icon"></span>
+            <div class="option-text">
+              <span class="option-name">Random Forest</span>
+              <span class="option-desc">99.7% accuracy</span>
+            </div>
+          </div>
+
+          <div class="dropdown-option" data-value="lstm">
+            <span class="option-icon"></span>
+            <div class="option-text">
+              <span class="option-name">LSTM Neural Network</span>
+              <span class="option-desc">98.6% accuracy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p id="model-description" class="model-description"></p>
+  </section>
+
+  <!-- UPDATED: New horizontal layout for KPI and Model Comparison -->
+  <section>
+    <div class="kpi-and-chart-container" style="display: flex; gap: 2rem; align-items: stretch; margin-bottom: 2rem;">
+      
+      <!-- LEFT: Compact AQI KPI Card -->
+      <div class="aqi-kpi-card" style="flex: 0 0 300px; min-width: 280px;">
+        <div class="card aqi-summary" style="height: 100%; display: flex; flex-direction: column; justify-content: center; padding: 1.5rem;">
+          <h3 style="margin: 0 0 1rem 0; font-size: 1.25rem; color: #374151;">Overall AQI Prediction</h3>
+          <div style="text-align: center;">
+            <p id="overall-aqi" class="aqi-number" style="margin: 0; font-size: 3rem; font-weight: bold; color: #1f2937;">56</p>
+            <p id="aqi-grade" class="aqi-grade" style="margin: 0.5rem 0 0 0; color: rgb(250, 204, 21); font-size: 1rem; font-weight: 600;">
+              Moderate (Next 24h)
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Model Accuracy Chart (moved up from bottom) -->
+      <div class="model-chart-card" style="flex: 1; min-width: 0;">
+        <div class="card" style="height: 100%; display: flex; flex-direction: column;">
+          <h3 style="margin: 0 0 1rem 0; font-size: 1.25rem; color: #374151; padding: 0 1rem;">Model Accuracy Comparison</h3>
+          <div style="flex: 1; padding: 0 1rem 1rem 1rem;">
+            <canvas id="accuracy-comparison-chart" style="height: 100% !important; min-height: 200px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEPT: 7-Day Trend Chart (full width) -->
+  <section>
+    <h3 class="section-title">Predicted AQI Trend (Next 7 Days)</h3>
+    <div class="card">
+      <canvas id="aqi-trend-chart" height="150"></canvas>
+    </div>
+  </section>
+</div>
+<style>
+/* Force center alignment for chart titles */
+.chart-container h3,
+.chart-container .chart-title,
+canvas + h3,
+h3 + canvas,
+#accuracy-comparison-chart {
+  text-align: center !important;
+}
+
+/* If you have a specific title element, target it directly */
+.model-chart-card h3 {
+  text-align: center !important;
+}
+
+/* Alternative: Center the entire chart container */
+.model-chart-card {
+  text-align: center !important;
+}
+
+.model-chart-card > * {
+  text-align: center !important;
+}
+
+.aqi-kpi-card,
+.aqi-summary {
+  text-align: center !important;
+}
+
+.aqi-kpi-card h3,
+.aqi-summary h3 {
+  text-align: center !important;
+}
+
+.aqi-kpi-card .aqi-number,
+.aqi-summary .aqi-number {
+  text-align: center !important;
+}
+
+.aqi-kpi-card .aqi-grade,
+.aqi-summary .aqi-grade {
+  text-align: center !important;
+}
+
+/* Alternative: Target by content */
+h3:contains("Overall AQI Prediction") {
+  text-align: center !important;
+}
+
+/* If it's in a card container */
+.card h3 {
+  text-align: center !important;
+}
+
+/* Center everything in the KPI section */
+.kpi-and-chart-container .aqi-kpi-card * {
+  text-align: center !important;
+}
+
+</style>
