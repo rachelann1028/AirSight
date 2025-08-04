@@ -638,7 +638,9 @@ if __name__ == '__main__':
     print(" Chart data generation is now FIXED and working!")
     
 from flask import Flask
-
+@app.route("/")
+def home():
+    return "API is live"
 app = Flask(__name__)
 
 import os
@@ -647,7 +649,5 @@ if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
 
-@app.route("/")
-def home():
-    return "API is live"
+
 
