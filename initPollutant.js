@@ -398,9 +398,17 @@ function updatePollutantChart(chartData) {
 }
 
 function updateHighestConcentration(highestData) {
+
+// Normalize to 6 pollutants; fill missing with placeholders if API omitted any
+const requiredOrder = ['PM2.5','PM10','NO2','SO2','CO','O3'];
+const byPollutant = {};
+highestData.forEach(d => { if (d && d.pollutant) byPollutant[d.pollutant] = d; });
+const normalized = requiredOrder.map(p => byPollutant[p] || { pollutant: p, date: '--', concentration: '--', unit: '', day: '--' });
+highestData = normalized;
+
     console.log("🏆 Updating highest concentration display:", highestData);
     
-    const container = document.querySelector(".grid.grid-cols-5");
+    const container = document.getElementById("highest-concentration-grid");
     if (!container) {
         console.log("❌ Highest concentration container not found");
         return;
@@ -1094,7 +1102,8 @@ function createProfessionalPollutantDropdown() {
             closeDropdown();
         }, 150);
         
-        console.log(`🧪 Selected pollutant: ${pollutantData.name} (${value}) - NO auto-update`);
+        console.log(`🧪 Selected pollutant: ${pollutantData.name} (${value})`);
+            updatePollutantData();
     }
     
     trigger.addEventListener('click', toggleDropdown);
