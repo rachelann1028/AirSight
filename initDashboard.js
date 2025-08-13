@@ -190,22 +190,14 @@ function updateAirQualityChart(chartData, chartLabels = null, currentAqi = null,
         else return "#ef4444";                 // Red
     }
 
-    // 🎯 Get current day position (August 9, 2025 = day 221)
+    // 🎯 Get current day position
     function getCurrentDayPosition() {
-        const now = new Date('2025-08-10'); // Current date
-        const startOfYear = new Date(2025, 0, 1); // January 1st, 2025
+        const now = new Date(); // Current date
+        const startOfYear = new Date(now.getFullYear(), 0, 1); // Jan 1 of current year
         const dayOfYear = Math.floor((now - startOfYear) / (24 * 60 * 60 * 1000)) + 1;
-        
-        console.log(`📅 Current date: August 9, 2025 = Day ${dayOfYear} of 365`);
-        return dayOfYear - 1; // 0-based index (day 220 in array)
+        return dayOfYear - 1; // 0-based index
     }
 
-    // 🔍 DEBUG: Validate real model data
-    console.log('🔍 Real Model Data Validation:');
-    console.log('   Chart data length:', chartData?.length || 'MISSING');
-    console.log('   Chart data sample (first 5):', chartData?.slice(0, 5) || 'NO DATA');
-    console.log('   Chart data sample (last 5):', chartData?.slice(-5) || 'NO DATA');
-    console.log('   Current AQI from dashboard:', currentAqi);
     console.log('   Expected today position:', getCurrentDayPosition());
 
     // 🚨 VALIDATION: Ensure we have real data
@@ -371,7 +363,7 @@ function updateAirQualityChart(chartData, chartLabels = null, currentAqi = null,
                 title: {
                     display: true,
                     text: chartData.length === 365 
-                        ? 'AI-Predicted Air Quality Index - Daily Data for 2025'
+                        ? 'AI-Predicted Air Quality Index - Daily Data for ' + new Date().getFullYear()
                         : chartData.length === 48 
                             ? 'AI-Predicted Air Quality Index - Weekly Data with Monthly View'
                             : 'AI-Predicted Air Quality Index',
@@ -392,15 +384,15 @@ function updateAirQualityChart(chartData, chartLabels = null, currentAqi = null,
                             const isToday = dataIndex === todayPosition;
                             
                             if (isToday) {
-                                return `📍 TODAY - August 10, 2025`;
+                                return `📍 TODAY - ${new Date().toDateString()}`;
                             } else if (chartData.length === 365) {
-                                const date = new Date(2025, 0, dataIndex + 1);
+                                const date = new Date(new Date().getFullYear(), 0, dataIndex + 1);
                                 return `${date.toDateString()}`;
                             } else if (chartData.length === 48) {
                                 const monthIndex = Math.floor(dataIndex / 4);
                                 const weekIndex = dataIndex % 4;
                                 const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-                                return `${monthNames[monthIndex]} 2025 - Week ${weekIndex + 1}`;
+                                return `${monthNames[monthIndex]} ${new Date().getFullYear()} - Week ${weekIndex + 1}`;
                             } else {
                                 return `Data Point ${dataIndex + 1}`;
                             }
@@ -596,7 +588,7 @@ function updateAirQualityChart(chartData, chartLabels = null, currentAqi = null,
                     
                     // Today label
                     ctx.setLineDash([]);
-                    const labelText = `Today (10/8)`;
+                    const labelText = `Today (${new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric' })})`;
                     
                     ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
                     ctx.textAlign = 'center';
